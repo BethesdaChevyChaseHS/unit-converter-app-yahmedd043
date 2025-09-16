@@ -4,15 +4,14 @@
 
 package bcc.unitConverter;
 
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.GridLayout;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JFrame;
 
 public class App {
     public static void main(String[] args) {
@@ -23,12 +22,22 @@ public class App {
         // fourth is vertical gap
         // when you add your new converter calculators, you will want to change the row
         // number from 1 to 2/3
-        frame.setLayout(new GridLayout(1, 4, 5, 5));
+        frame.setLayout(new GridLayout(3, 4, 5, 5));
 
         JLabel inputLabel1 = new JLabel("Fahrenheit:");
         JTextField inputField1 = new JTextField();
         JButton convertButton1 = new JButton("Convert");
         JLabel outputLabel1 = new JLabel("Celsius: ");
+
+        JLabel inputLabel2 = new JLabel("Celsius:");
+        JTextField inputField2 = new JTextField();
+        JButton convertButton2 = new JButton("Convert");
+        JLabel outputLabel2 = new JLabel("Fahrenheit: ");
+
+        JLabel inputLabel3 = new JLabel("Meters:");
+        JTextField inputField3 = new JTextField();
+        JButton convertButton3 = new JButton("Convert");
+        JLabel outputLabel3 = new JLabel("Feet: ");
 
         // the below code uses what is called a try catch statatement.
         // if the code within the try block throws an error, the code within the catch
@@ -54,17 +63,54 @@ public class App {
             }
         });
 
+        convertButton2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    double celsius = Double.parseDouble(inputField2.getText());
+                    double fahrenheit = celsius * 9 / 5 + 32;
+                    outputLabel2.setText(String.format("Fahrenheit: %.2f", fahrenheit));
+                } catch (NumberFormatException ex) {
+                    outputLabel2.setText("Fahrenheit: Invalid input");
+                }
+            } 
+        });
+
+        convertButton3.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    double meters = Double.parseDouble(inputField3.getText());
+                    double feet = meters * 3.28084;
+                    outputLabel3.setText(String.format("Feet: %.2f", feet));
+                } catch (NumberFormatException ex) {
+                    outputLabel3.setText("Feet: Invalid input");
+                }
+            } 
+        });
+
         frame.add(inputLabel1);
         frame.add(inputField1);
         frame.add(convertButton1);
         frame.add(outputLabel1);
 
         //add your other rows to the frame here
+        frame.add(inputLabel2);
+        frame.add(inputField2);
+        frame.add(convertButton2);
+        frame.add(outputLabel2);
+
+        frame.add(inputLabel3);
+        frame.add(inputField3);
+        frame.add(convertButton3);
+        frame.add(outputLabel3);
 
         //you will also want to change the size of the frame when you add more rows
         frame.setSize(500, 80);
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+    }
+
+    public String getGreeting() {
+        return "hello!! welcome to my java unit conversion tool";
     }
 
 }
